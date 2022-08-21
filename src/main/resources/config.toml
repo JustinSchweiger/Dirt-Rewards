@@ -1,0 +1,16 @@
+# Configuration file for Dirt-Rewards
+
+[general]
+# Wether debug-messages should be printed to the console
+debug = true
+# Wether debug-messages should be colored in the console
+coloredDebug = true
+# How many list entries should be displayed before pagination is applied
+listEntries = 10
+
+[sound]
+# Wether a sound should be played when the player gets a reward
+playRewardSound = true
+# What sound should be played when the player gets a reward
+# Needs the value above to be true to work
+rewardSound = "minecraft:block.chain.place"

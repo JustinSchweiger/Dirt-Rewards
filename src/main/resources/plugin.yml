@@ -1,0 +1,12 @@
+name: DirtRewards
+version: '${version}'
+main: net.dirtcraft.plugins.dirtrewards.DirtRewards
+api-version: 1.16
+prefix: DirtRewards
+authors: [ DeJustinHD ]
+depend: [ Vault ]
+description: Adds rewards on block break events for Dirtcraft 1.16+
+commands:
+    dirtrewards:
+        description: Base command for the plugin.
+        aliases: [ rewards ]
