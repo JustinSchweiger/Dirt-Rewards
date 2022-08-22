@@ -5,7 +5,6 @@ import net.dirtcraft.plugins.dirtrewards.data.CommandReward;
 import net.dirtcraft.plugins.dirtrewards.data.MoneyReward;
 import net.dirtcraft.plugins.dirtrewards.data.RewardsManager;
 import net.dirtcraft.plugins.dirtrewards.database.DatabaseOperation;
-import net.dirtcraft.plugins.dirtrewards.database.callbacks.CommandCallback;
 import net.dirtcraft.plugins.dirtrewards.database.callbacks.MoneyCallback;
 import net.dirtcraft.plugins.dirtrewards.utils.Permissions;
 import net.dirtcraft.plugins.dirtrewards.utils.Strings;

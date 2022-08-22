@@ -7,6 +7,7 @@ import net.dirtcraft.plugins.dirtrewards.data.RewardsManager;
 import net.dirtcraft.plugins.dirtrewards.utils.Permissions;
 import net.dirtcraft.plugins.dirtrewards.utils.Strings;
 import net.dirtcraft.plugins.dirtrewards.utils.Utilities;
+import net.dirtcraft.plugins.dirtrewards.utils.gradient.GradientHandler;
 import net.md_5.bungee.api.chat.*;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.ChatColor;
@@ -140,33 +141,32 @@ public class ListCommand {
 			sender.spigot().sendMessage(entry.create());
 		}
 
-		TextComponent bottomBar = new TextComponent(TextComponent.fromLegacyText(Utilities.format(Strings.HALF_BAR_ONE)));
+		TextComponent bottomBar = new TextComponent(TextComponent.fromLegacyText(GradientHandler.hsvGradient("-----------------------", new java.awt.Color(251, 121, 0), new java.awt.Color(247, 0, 0), GradientHandler::linear, net.md_5.bungee.api.ChatColor.STRIKETHROUGH)));
 		TextComponent pagePrev;
 		if (page == 1) {
-			pagePrev = new TextComponent(ChatColor.BLACK + " \u00AB");
+			pagePrev = new TextComponent(ChatColor.GRAY + "  \u25C0 ");
 			pagePrev.setBold(true);
 			pagePrev.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(ChatColor.RED + "You are already on the first page!")));
 		} else {
-			pagePrev = new TextComponent(ChatColor.GREEN + " \u00AB");
+			pagePrev = new TextComponent(ChatColor.GREEN + "  \u25C0 ");
 			pagePrev.setBold(true);
 			pagePrev.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(ChatColor.GREEN + "Previous page")));
-			pagePrev.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/dirtrewards list " + (page - 1)));
+			pagePrev.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/rewards list " + (page - 1)));
 		}
 		bottomBar.addExtra(pagePrev);
-		bottomBar.addExtra(ChatColor.DARK_AQUA + " " + page + ChatColor.GRAY + " / " + ChatColor.DARK_AQUA + maxPage + " ");
 		TextComponent pageNext;
 		if (page == maxPage) {
-			pageNext = new TextComponent(ChatColor.BLACK + "\u00BB ");
+			pageNext = new TextComponent(ChatColor.GRAY + " \u25B6  ");
 			pageNext.setBold(true);
 			pageNext.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(ChatColor.RED + "You are already on the last page!")));
 		} else {
-			pageNext = new TextComponent(ChatColor.GREEN + "\u00BB ");
+			pageNext = new TextComponent(ChatColor.GREEN + " \u25B6  ");
 			pageNext.setBold(true);
 			pageNext.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(ChatColor.GREEN + "Next page")));
-			pageNext.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/dirtrewards list " + (page + 1)));
+			pageNext.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/rewards list " + (page + 1)));
 		}
 		bottomBar.addExtra(pageNext);
-		bottomBar.addExtra(new TextComponent(TextComponent.fromLegacyText(Utilities.format(Strings.HALF_BAR_TWO))));
+		bottomBar.addExtra(new TextComponent(TextComponent.fromLegacyText(GradientHandler.hsvGradient("-----------------------", new java.awt.Color(247, 0, 0), new java.awt.Color(251, 121, 0), GradientHandler::linear, net.md_5.bungee.api.ChatColor.STRIKETHROUGH))));
 		sender.sendMessage("");
 		sender.spigot().sendMessage(bottomBar);
 	}

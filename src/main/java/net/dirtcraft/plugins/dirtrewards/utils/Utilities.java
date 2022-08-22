@@ -98,4 +98,13 @@ public class Utilities {
 			player.playSound(player.getLocation(), sound, 1, 1);
 		}
 	}
+
+	public static boolean containsChar(String[] args, char charToCheck) {
+		for (String arg : args) {
+			if (arg.contains(String.valueOf(charToCheck))) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -1,12 +1,16 @@
 package net.dirtcraft.plugins.dirtrewards.commands;
 
+import net.dirtcraft.plugins.dirtrewards.data.Block;
+import net.dirtcraft.plugins.dirtrewards.data.RewardsManager;
 import net.dirtcraft.plugins.dirtrewards.utils.Permissions;
 import net.dirtcraft.plugins.dirtrewards.utils.Strings;
+import net.dirtcraft.plugins.dirtrewards.utils.Utilities;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.ChatColor;
+import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -125,11 +129,41 @@ public class BaseCommand implements CommandExecutor, TabCompleter {
 			if (sender.hasPermission(Permissions.RELOAD)) {
 				arguments.add("reload");
 			}
+		} else if (args.length == 2 && Utilities.isInteger(args[1]) && args[0].equalsIgnoreCase("list")) {
+			arguments.add("[page]");
+		} else if (args.length == 2 && args[0].equalsIgnoreCase("edit")) {
+			for (Block block : RewardsManager.getBlocks()) {
+				arguments.add(block.getNamespacedKey().toString());
+			}
+		} else if (args.length == 3 && args[0].equalsIgnoreCase("edit")) {
+			arguments.addAll(EditCommand.getOptions());
+		} else if (args.length > 3 && args[0].equalsIgnoreCase("edit") && args[2].equalsIgnoreCase("addCommand")) {
+			arguments.add("<chance>");
+		} else if (args.length > 4 && args[0].equalsIgnoreCase("edit") && args[2].equalsIgnoreCase("addCommand") && !Utilities.containsChar(args, '"')) {
+			arguments.add("<#command#>");
+		} else if (args.length > 5 && args[0].equalsIgnoreCase("edit") && args[2].equalsIgnoreCase("addCommand")) {
+			arguments.add("<\"message\">");
+		} else if (args.length > 3 && args[0].equalsIgnoreCase("edit") && args[2].equalsIgnoreCase("removeCommand")) {
+			NamespacedKey namespacedKey = NamespacedKey.fromString(args[1]);
+			int size = RewardsManager.getCommandRewards(new Block(namespacedKey)).size();
+			for (int i = 0; i < size; i++) {
+				arguments.add(Integer.toString(i));
+			}
+		} else if (args.length == 4 && args[0].equalsIgnoreCase("edit") && args[2].equalsIgnoreCase("addMoney")) {
+			arguments.add("<chance>");
+		} else if (args.length == 5 && args[0].equalsIgnoreCase("edit") && args[2].equalsIgnoreCase("addMoney")) {
+			arguments.add("<min>");
+		} else if (args.length == 6 && args[0].equalsIgnoreCase("edit") && args[2].equalsIgnoreCase("addMoney")) {
+			arguments.add("<max>");
+		} else if (args.length == 2 && args[0].equalsIgnoreCase("remove")) {
+			for (Block block : RewardsManager.getBlocks()) {
+				arguments.add(block.getNamespacedKey().toString());
+			}
 		}
 
 		List<String> tabResults = new ArrayList<>();
 		for (String argument : arguments) {
-			if (argument.equalsIgnoreCase("<amount>") || argument.equalsIgnoreCase("[page]")) {
+			if (argument.equalsIgnoreCase("<amount>") || argument.equalsIgnoreCase("[page]") || argument.equalsIgnoreCase("<#command#>") || argument.equalsIgnoreCase("<\"message\">") || argument.equalsIgnoreCase("<chance>")) {
 				tabResults.add(argument);
 				continue;
 			}
