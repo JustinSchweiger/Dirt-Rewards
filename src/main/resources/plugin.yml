@@ -10,3 +10,26 @@ commands:
     dirtrewards:
         description: Base command for the plugin.
         aliases: [ rewards ]
+
+permissions:
+    dirtrewards.base:
+        description: Base permission for the plugin.
+    dirtrewards.add:
+        description: Permission to add rewards.
+    dirtrewards.remove:
+        description: Permission to remove rewards.
+    dirtrewards.reload:
+        description: Permission to reload the plugin.
+    dirtrewards.edit:
+        description: Permission to edit rewards.
+    dirtrewards.list:
+        description: Permission to list rewards.
+    dirtrewards.admin:
+        description: Permissions admins should have.
+        children:
+            dirtrewards.base: true
+            dirtrewards.add: true
+            dirtrewards.remove: true
+            dirtrewards.reload: true
+            dirtrewards.edit: true
+            dirtrewards.list: true
